@@ -66,6 +66,12 @@ class Translations
                     'tips' => $this->module->l('Once you are done with the first shop, you can configure the others: select them one by one with the shop selector, in the horizontal menu.', 'translations'),
                 ],
                 'cantReceivePayments' => $this->module->l('You can not receive Payments in PayPal at this moment, please contact PayPal to solve this problem', 'translations'),
+                'session' => [
+                    'error' => [
+                        'shopNotFound' => $this->module->l('Your shop authentication id seems have been duplicated. To generate a new one, please try to reset the module and onboard again. You can contact support if problem persists.', 'translations'),
+                        'networkIssue' => $this->module->l('We are experiencing issues with our authentication services, please try again in a few minutes, we are working on it.', 'translations'),
+                    ],
+                ],
             ],
             'pages' => [
                 'accounts' => [
