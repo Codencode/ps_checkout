@@ -34,6 +34,7 @@
   <p class="express-checkout-label">
     {$translatedText|escape:'htmlall':'UTF-8'}
   </p>
+  <button id="ps_checkout-cancel" class="btn btn-secondary">{$cancelTranslatedText|escape:'htmlall':'UTF-8'}</button>
 </div>
 {elseif $is17}
   <div id="ps_checkout-loader" class="express-checkout-block mb-2">
@@ -58,7 +59,7 @@
         const paymentOptionContainer = document.getElementById(paymentOption.id + '-container');
         const paymentOptionName = paymentOption.getAttribute('data-module-name');
 
-        if (-1 !== paymentOptionName.search('ps_checkout')) {
+        if (!paymentOptionContainer.classList.contains('ps_checkout-payment-option') && -1 !== paymentOptionName.search('ps_checkout')) {
           paymentOptionContainer.style.display = 'none';
         }
       });

@@ -727,6 +727,7 @@ class Ps_checkout extends PaymentModule
         $isExpressCheckout = false !== $psCheckoutCart && $psCheckoutCart->isExpressCheckout;
 
         $this->context->smarty->assign([
+            'cancelTranslatedText' => $this->l('Choose another payment method'),
             'is17' => $shopContext->isShop17(),
             'isExpressCheckout' => $isExpressCheckout,
             'modulePath' => $this->getPathUri(),
@@ -1066,6 +1067,8 @@ class Ps_checkout extends PaymentModule
             && in_array($psCheckoutCart->paypal_status, [PsCheckoutCart::STATUS_CREATED, PsCheckoutCart::STATUS_APPROVED], true)
             && false === empty($psCheckoutCart->paypal_token_expire)
             && strtotime($psCheckoutCart->paypal_token_expire) > time()
+            && false === empty($psCheckoutCart->date_upd)
+            && strtotime($psCheckoutCart->date_upd) + 3600 > time()
         ) {
             $payPalOrderId = $psCheckoutCart->paypal_order;
             $cartFundingSource = $psCheckoutCart->paypal_funding;
@@ -1460,6 +1463,7 @@ class Ps_checkout extends PaymentModule
         $isExpressCheckout = false !== $psCheckoutCart && $psCheckoutCart->isExpressCheckout;
 
         $this->context->smarty->assign([
+            'cancelTranslatedText' => $this->l('Choose another payment method'),
             'is17' => $shopContext->isShop17(),
             'isExpressCheckout' => $isExpressCheckout,
             'isOnePageCheckout16' => !$shopContext->isShop17() && (bool) Configuration::get('PS_ORDER_PROCESS_TYPE'),

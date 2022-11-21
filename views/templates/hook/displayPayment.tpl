@@ -38,6 +38,7 @@
       {$translatedText|escape:'htmlall':'UTF-8'}
     </p>
     <div id="button-paypal" class="ps_checkout-express-checkout-button">
+      <button id="ps_checkout-cancel" class="button btn" type="button">{$cancelTranslatedText|escape:'htmlall':'UTF-8'}</button>
       <button id="ps_checkout-express-checkout-submit-button" class="button btn btn-default button-medium" type="button" disabled>
         <span>{l s='I confirm my order' mod='ps_checkout'}<i class="icon-chevron-right right"></i></span>
       </button>

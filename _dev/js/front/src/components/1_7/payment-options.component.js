@@ -125,6 +125,45 @@ export class PaymentOptionsComponent extends BaseComponent {
     );
   }
 
+  renderExpressCheckoutCancelButton() {
+    const cancelButton = document.querySelector('#ps_checkout-cancel');
+
+    if (!cancelButton) {
+      console.error('HTMLElement selector #ps_checkout-cancel not found.');
+      return;
+    }
+
+    cancelButton.addEventListener('click', () => {
+      this.psCheckoutApi.postCancelOrder(
+        {
+          orderID: this.payPalService.getOrderId(),
+          fundingSource: this.payPalService.getFundingSource(),
+          isExpressCheckout: true
+        })
+        .then(() => {
+          this.renderPaymentOptionItems();
+          this.renderPaymentOptionRadios();
+          const expressCheckoutContainer = document.querySelector('.express-checkout-block');
+          const expressCheckoutPaymentButton = document.querySelector('#ps_checkout-express-checkout-button');
+
+          if (expressCheckoutContainer) {
+            expressCheckoutContainer.style.display = 'none';
+          }
+
+          if (expressCheckoutPaymentButton) {
+            expressCheckoutPaymentButton.style.display = 'none';
+          }
+
+          this.data.HTMLElementPaymentOptionsContainer.style.display = 'block';
+          this.data.HTMLBasePaymentConfirmation.style.display = 'block';
+        })
+        .catch((error) => {
+          console.error(error);
+          this.data.notification.showError(error.message);
+        });
+    });
+  }
+
   render() {
     this.data.conditions = this.app.root.children.conditionsCheckbox;
     this.data.notification = this.app.root.children.notification;
@@ -135,6 +174,7 @@ export class PaymentOptionsComponent extends BaseComponent {
       this.renderPaymentOptionRadios();
     } else {
       this.renderExpressCheckoutPaymentButton();
+      this.renderExpressCheckoutCancelButton();
     }
 
     return this;
