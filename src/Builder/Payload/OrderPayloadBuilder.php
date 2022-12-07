@@ -377,7 +377,7 @@ class OrderPayloadBuilder extends Builder implements PayloadBuilderInterface
 
         // set handling cost id needed -> principally used in case of gift_wrapping
         if (!empty($this->cart['cart']['subtotals']['gift_wrapping'])) {
-            $breakdownHandling += $this->cart['cart']['subtotals']['gift_wrapping'];
+            $breakdownHandling += $this->cart['cart']['subtotals']['gift_wrapping']['amount'];
         }
 
         $remainderValue = $amountTotal - $breakdownItemTotal - $breakdownTaxTotal - $breakdownShipping - $breakdownHandling;
